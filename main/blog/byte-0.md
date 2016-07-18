@@ -14,6 +14,7 @@ navhome: /
 navclass: urbit
 ---
 <br /><br />
+
 This is the first post in our new Urbyte series.
 
 The Urbyte concept is that you, an ordinary programmer, not a
@@ -47,24 +48,27 @@ In the Urbyte exercises you'll be running what we call a "fake
 `~zod`."  A string starting with `~`, like `~zod`, is what Urbit
 calls a *ship*.
 
-A ship is one number which means four things: a network address,
-a cryptographic identity, a memorable name, and a single virtual
-computer.  We write this number in a base-256 format, where each
-digit is a syllable.
+A ship is one number which means four things: a network address, a
+cryptographic identity, a memorable name, and a single virtual computer.
+We write this number in a base-256 format, where each digit is a
+syllable.  Imagine if your phone number was a pronounceable
+string which sounded like a name in a foreign language.
 
 `~zod` is ship zero, making it a very important ship indeed.
 Your "fakezod" thinks it's `~zod`, but no one can talk to it.
+(An ordinary user-level ship is a 32-bit number which becomes
+a four-syllable string, like `~talsur-todres`.)
 
-This is not the true Urbit experience, of course.  But it's
+A fakezod is not the true Urbit experience, of course.  But it's
 ideal if all you want to do is play around with Hoon.  If you
-have a real urbit ship, of course, you can use that instead.
+have a real urbit ship, of course you can use that instead.
 
 ## Create and restart
 
-To create a fakezod, run:
+To create your fakezod, run:
 
 ```
-$ urbit -FI ~zod -c myzod
+$ urbit -FI ~zod -c myship
 ```
 
 This will take about 30 seconds and spin out a bunch of boot
@@ -101,19 +105,19 @@ few more in a second.  First, quit Urbit with `^D`:
 $
 ```
 
-You now have an Urbit image, or *pier*, in the `myzod` directory.
+You now have an Urbit image, or *pier*, in the `myship` directory.
 Right now the only thing in your pier is Urbit's system files:
 
 ```
-$ ls -a myzod
+$ ls -a myship
 ./  ../ .urb/
 ```
 
-Restarting uses almost the same command, but without `-c`.  There
-are also fewer startup messages.
+Restarting uses almost the same command, but without `-c` (which 
+means "create").  There are also fewer startup messages:
 
 ```
-$ urbit -FI ~zod myzod
+$ urbit -FI ~zod myship
 [...]
 ames: on localhost, UDP 31337.
 http: live (insecure, public) on 8080
@@ -256,12 +260,22 @@ If you look at these nouns as binary trees, you see
 
 Each number is an atom; each dot is a cell.
 
+## And we're done
+
+And we're done!  Press `^D` to exit:
+
+```
+~zod:dojo> ^D
+$
+```
+
 ## Questions and/or exercises
 
 And we're done with our very first Urbyte!  Here's a question to
-think about.  These exercises are never required, but they may
-be fun and/or interesting.
+think about.  These exercises are never mandatory, but they may
+be fun and/or interesting.  Skip them if they're obvious.
 
 The question today is: what is the right way to represent common
 data structures as nouns?  A linked list?  A string?  A *signed*
-integer?  A table or associative array?
+integer?  A table or associative array?  Just try to picture
+these structures in your head, or draw them on a piece of paper.

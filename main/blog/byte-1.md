@@ -17,6 +17,18 @@ navclass: urbit
 Thanks for reading Urbyte 0!  In Urbyte 1, we'll look a little
 more deeply at atoms and other simple noun types.
 
+Let's restart our engines:
+
+```
+$ urbit -FI ~zod myship
+[...]
+ames: on localhost, UDP 31337.
+http: live (insecure, public) on 8080
+http: live ("secure", public) on 8443
+http: live (insecure, loopback) on 12321
+~zod:dojo>
+```
+
 ## The atom question
 
 It seems limiting to have only one kind of atom, the unsigned
@@ -68,7 +80,7 @@ cast syntax, which lets us change the type of an atom, and
 converting hex `0x42` to a decimal.
 
 An aura is soft type.   The programmer can always insist on how
-to interpret an atom.  Hoon doesn't have "dependent types"; and
+to interpret an atom.  Hoon doesn't have "dependent types"; it
 can't enforce any constraints the aura puts on the atom's value.
 
 ### Signed integers
@@ -101,13 +113,13 @@ can't enforce any constraints the aura puts on the atom's value.
 `--7` means "positive 7."  `+7` might have been better, but `+`
 is not URL-safe.
 
-With unlimited atom width, traditional sign extension makes no
-sense.  The sign bit is the low bit.  Even atoms are positive,
-odd atoms are negative.
-
 Hoon needs `--` to distinguish positive signed numbers because
 Hoon's type system doesn't feed back into its parser.  The
 expression itself needs to control whether it's `@sd` or `@ud`.
+
+With unlimited atom width, traditional sign extension makes no
+sense.  The sign bit is the low bit.  Even atoms are positive,
+odd atoms are negative.
 
 And Hoon has no overloading or type detection; we need to use a
 different function to add signed integers.  We'll always choose
@@ -237,7 +249,7 @@ still have auras; `~h6` (6 hours) is still a `@dr`.
 ## Common irregulars
 
 There are a few special forms worth learning early: symbols,
-null, and loobeans:
+null, loobeans, and of course ships:
 
 ```
 > ? %foo
@@ -267,6 +279,13 @@ null, and loobeans:
 
 > `@ud`~
 0
+
+> ? ~zod
+  ~zod
+@p
+
+> `@ux`~forseg-bolbyn
+0x885e.8af9
 ```
 
 `%symbol` is a constant with aura `@tas` (text, ASCII, symbol).
@@ -280,6 +299,9 @@ This makes sense at a certain mathematical level, though it
 was probably a mistake.
 
 `~` is Hoon's nil: constant `0`, aura `@n`.
+
+And of course, `@p` is the phonemic base used for ship names.
+(It's useful for any kind of memorable number.)
 
 ## Cells and types
 
@@ -299,4 +321,37 @@ Another fun trick is to cast any noun to the `*` type, ie,
 generic noun.  We then know nothing about the noun, so we print
 all its atoms as decimals.
 
-That's all for today!  Please wait for the next fun Urbyte.
+## And we're done
+
+And we're done!  Press `^D` to exit:
+
+```
+~zod:dojo> ^D
+$
+```
+
+## Questions and/or exercises
+
+As always, these questions are optional and only for fun.
+
+We didn't include anywhere near all auras or syntaxes in this
+lesson.  It's just a set of examples.
+
+Try using the dojo's magic error erasure to stumble around the
+rest of Hoon's atom syntax.  Any string that can't be extended
+into a valid expression will be trimmed back, with a beep, until
+it can.  Return will beep if the expression is not complete.
+This feedback is harmless and does not use an electric shock,
+but it enables stochastic reinforcement learning of Hoon syntax.
+
+If `~h6` is six hours, how do you write forty-five minutes?  Two
+days, six hours and forty-five minutes?
+
+What would you expect the syntax for double-precision float to
+be?  What about base64?
+
+Does an absolute date have to include every zillisecond, or can
+it be pruned to a day or a year?
+
+If there's an IP syntax, what about bitcoin addresses?  What
+other auras do you think should be supported?
